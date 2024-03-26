@@ -1,0 +1,114 @@
+/* A001A0004.css */
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .tabs button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #f2f2f2;
+    cursor: pointer;
+  }
+  
+  .tabs button.active {
+    background-color: red;
+    color: white;
+  }
+  
+  .tab-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 280px); /* 양쪽 여백을 고려하여 계산 */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .menu-list, .info-list {
+    width: 100%;
+    padding: 20px; /* 위쪽과 왼쪽에 공간 추가 */
+  }
+  
+  .menu-item, .info-item {
+    display: flex;
+    align-items: center; /* 수평 중앙 정렬 */
+    justify-content: space-between; /* 내용을 좌우로 분산 */
+    margin-bottom: 10px;
+    background: #fff; /* 배경색 지정 */
+    padding: 10px; /* 내부 패딩 추가 */
+    border-radius: 8px; /* 둥근 모서리 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+  }
+  
+  .menu-img-placeholder {
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    margin-right: 10px;
+    border-radius: 50%; /* 이미지 플레이스홀더에 둥근 모서리 추가 */
+  }
+
+  .menu-details {
+    display: flex;
+    flex-grow: 1; /* 남은 공간 모두 차지 */
+    align-items: center; /* 가로로 내용 중앙 정렬 */
+    justify-content: start; /* 내용을 좌측으로 정렬 */
+  }
+  
+  .menu-name {
+    font-weight: bold;
+  }
+  
+  .menu-price {
+    color: #888;
+  }
+  
+  .menu-quantity {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 10px; /* 드롭다운과 가격 사이의 여백 추가 */
+  }
+  /* 담기 버튼 스타일링 */
+    .add-to-cart-button {
+        padding: 5px 10px;
+        margin-left: 10px; /* 수량 선택과 버튼 사이의 여백 추가 */
+        background-color: #5cb85c; /* 버튼 배경색 */
+        color: white; /* 버튼 텍스트 색상 */
+        border: none; /* 테두리 없음 */
+        border-radius: 4px; /* 둥근 모서리 */
+        cursor: pointer; /* 클릭 가능한 요소 표시 */
+        transition: background-color 0.3s ease; /* 색상 변화 애니메이션 */
+    }
+    
+    .add-to-cart-button:hover {
+        background-color: #4cae4c; /* 버튼에 마우스를 올렸을 때 배경색 변경 */
+    }
+
+    /* 페이지 하단 주문하기 버튼 스타일 */
+.order-button-container {
+    position: fixed; /* 고정 위치 */
+    left: 0;
+    right: 0;
+    bottom: 0; /* 화면 하단에 배치 */
+    padding: 10px; /* 패딩 값 */
+    background: #f2f2f2; /* 배경색 */
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+  }
+  
+  .order-button {
+    padding: 10px 20px;
+    background-color: #5cb85c; /* 버튼 배경색 */
+    color: white; /* 버튼 텍스트 색상 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 둥근 모서리 */
+    cursor: pointer; /* 클릭 가능한 요소 표시 */
+    transition: background-color 0.3s ease; /* 색상 변화 애니메이션 */
+  }
+  
+  .order-button:hover {
+    background-color: #4cae4c; /* 버튼에 마우스를 올렸을 때 배경색 변경 */
+  }

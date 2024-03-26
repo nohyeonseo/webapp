@@ -1,0 +1,19 @@
+.navbar {
+    background-color: #dc3545; /* 부트스트랩의 .bg-danger 색상 */
+  }
+  
+  .btn-light {
+    color: #dc3545;
+    background-color: #ffffff;
+    border-color: #f8f9fa;
+  }
+  .login-button {
+    background-color: #3499FF;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  

@@ -1,0 +1,52 @@
+.order-form-container {
+    margin-top: 20px; /* 네비게이션 바로 인해 추가한 상단 여백을 조정합니다. */
+    margin-bottom: 50px; /* 하단에 여유 공간 추가합니다. */
+    padding: 40px; /* 내부 패딩을 추가하여 내용물과 컨테이너의 경계에 여백을 줍니다. */
+    background: #ffffff; /* 배경색 지정, 선택적입니다. */
+    border-radius: 8px; /* 둥근 모서리 추가, 선택적입니다. */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 박스 그림자 효과, 선택적입니다. */
+    max-width: 800px; /* 최대 너비를 설정하여 너무 넓어지지 않도록 합니다. */
+    margin-left: auto; /* 자동 마진으로 가운데 정렬합니다. */
+    margin-right: auto; /* 자동 마진으로 가운데 정렬합니다. */
+}
+.total-price {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.btn-block {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* ...기존의 CSS 코드... */
+
+.order-items .order-item {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.order-items .order-item, .order-total {
+    padding: 10px 0;
+    border-bottom: 1px solid #eaeaea; /* 구분선 추가, 선택적입니다. */
+}
+/* 마지막 order-item의 border-bottom을 제거합니다. */
+.order-items .order-item:last-child {
+    border-bottom: none;
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-weight: bold;
+}
+
+.btn-block {
+    width: calc(100% - 40px); /* 버튼의 양쪽 패딩을 고려한 너비 */
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px; /* 버튼 아래에 여유 공간을 추가합니다. */
+}
