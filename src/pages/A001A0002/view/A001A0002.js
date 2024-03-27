@@ -9,7 +9,7 @@ const A001A0002 = (props) => {
     const navigate = useNavigate();
     // const [categories, setCategories] = useState([]);
     // const [adimg , setImg] = useState();
-    const [search, setSearch] = useState(''); // 검색어 상태
+    const [search, setSearch] = useState([]); // 검색어 상태
     const [searchresult, setSeachResult] = useState(); //검색된 결과 담기
 
     const categories = [
@@ -111,9 +111,9 @@ const A001A0002 = (props) => {
                     </button>
                 </div>
                 {/* 검색된 결과 */}
-                {searchresult.map((result, index) => (
+                {/* {searchresult.map((result, index) => (
                     <div key={index}>{result.name}</div>
-                ))}
+                ))} */}
 
             </div>
         </div>

@@ -21,12 +21,18 @@ const A001A0001 = (props) => {
         return;
       }
       try{
-        const { data } = await API_POST('/A001A0001/login-in', {
+        const {data} = await API_POST('/rest/v1/A001A0001/login-in', {
           username,
           password,
         });
-        setAuthInfo(data);
-        navigate('/A001A002');
+        console.log("로그인 시도:",data);
+        if(data.result == "FAIL"){
+          alert("로그인에 실패하였습니다.");
+          return;
+        }
+        alert("로그인에 성공");
+        setAuthInfo(data.data);
+        navigate('/A001A0002');
       }
       catch(e){
         alert("서버가 연결되지 않았습니다.\n담장자에게 문의 주세요.");
@@ -34,7 +40,7 @@ const A001A0001 = (props) => {
     };
   
     const join = async() => {
-      navigate('/A001A006'); //회원가입페이지
+      navigate('/A001A0006'); //회원가입페이지
     };
 
     return(

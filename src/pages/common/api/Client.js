@@ -1,18 +1,15 @@
 import axios from "axios";
 
-// const serverAddress = 's06A.s-wontech.co.kr:8081'
-
 const instance = axios.create({
     // baseURL: 'http://10.0.2.2:8080',
-    baseURL: 'http://192.168.10.47:8080',
-    // baseURL: 'http://200.100.0.81:8080',
-    // baseURL: 'http://s06A.s-wontech.co.kr:8081',
+    // baseURL: 'http://192.168.10.47:8080',
+    baseURL: 'http://localhost:8080',
     // baseURL: `http://${serverAddress}`,
     timeout: 3000,
     withCredentials: true,
     headers: {
-        "Contents-Type": "application/json",
-        "Authorization": 'Bearer '
+        "Content-Type": "application/json",
+        // "Authorization": 'Bearer '
     }
 })
 
