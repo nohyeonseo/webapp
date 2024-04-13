@@ -1,37 +1,81 @@
 import React, { useState, useEffect } from 'react';
 import './A001A0005.css'; // 새 CSS 파일 임포트
 import Navbar from '../../common/header/Navbar';
-import { API_GET } from '../../common/api/Client';
-import { useNavigate } from 'react-router-dom';
+import { API_GET,API_POST } from '../../common/api/Client';
+import { json, useNavigate } from 'react-router-dom';
 
 const A001A0005 = () => {
-    // 이 예제에서는 상태를 하드코딩했습니다. 실제 앱에서는 API에서 이 데이터를 가져와야 합니다.
-    const [order, setOrder] = useState({
-        items: [
-            { id: 1, name: 'c메뉴', quantity: 2, price: 3000 },
-            { id: 2, name: 'b메뉴', quantity: 1, price: 2000 }
-        ],
-        total: 8000, // 수량과 가격을 곱한 값을 모두 더한 총합계
-        deliveryAddress: '',
-        paymentMethod: 'card', // 'cash' or 'card'
-        specialInstructions: ''
+    
+    const [orderMenu , setOrderMenu] = useState([]);
+    const [totalSum, setTotalSum] = useState('0');
+    const [userAddress , setUserAddress] = useState('');
+    const navigate = useNavigate(); 
+    //주문 요청 사항 
+    const [orderplus , setOrderPlus] = useState({
+        Address: '',
+        Instructions:'',
+        payMethod:''
     });
+    const [username,setUname]= useState('');
+    const [tellnumber , setTellnumber] = useState('');
 
-    const orderItems = [
-        { id: 1, name: 'c메뉴', quantity: 2, price: 3000 },
-        { id: 2, name: 'b메뉴', quantity: 1, price: 2000 },
-    ];
+    useEffect(() => {
+        const cartJSON = localStorage.getItem('cart');
+        const cart = JSON.parse(cartJSON) || [];
+        setOrderMenu(cart);
 
-    // 총합계 계산
-    const totalSum = orderItems.reduce(
-        (sum, item) => sum + item.price * item.quantity, 0
-    );
+        const total = cart.reduce(
+            (sum, item) => sum + item.price * item.quantity, 0
+        );
+        setTotalSum(total);
+        
+        const addressJSON = localStorage.getItem('address') || '없음';
+        setUserAddress(addressJSON);
 
-    // 주문 완료 핸들러
-    const submitOrder = () => {
-        console.log('주문 데이터', order);
-        // 여기에 주문 데이터를 서버로 전송하는 코드를 구현하세요.
-        alert('주문이 완료되었습니다.');
+        const username = localStorage.getItem('username') || '없음';
+        setUname(username);
+
+        const utellnum = localStorage.getItem('tellnumber') || '없음';
+        setTellnumber(utellnum);
+    }, []);
+
+    const changelist = (e) => {(
+        setOrderPlus({
+            ...orderplus,
+            [e.target.name]: e.target.value,
+        })
+    )};
+
+    const submitOrder = async () => {
+        // API 호출 구현
+        const res = {
+            username,
+            orderMenu, //cart 객체
+            totalSum,
+            userAddress,
+            tellnumber,
+            ...orderplus,
+        }
+        try {
+            console.log("res 값:",res);
+            const {data} = await API_POST(`/rest/v1/A001A0005/insert_order`, res);
+            console.log("api 결과 : ", data);
+            if(data.result === "SUCCESS" && data.data !== null){
+              alert('주문이 완료되었습니다');
+              localStorage.removeItem('cart');
+                if(data.data.orderId != "null"){
+                    const orderId = data.data.orderId
+                    navigate(`/A001A0007?orderId=${orderId}`);
+                } 
+            }else {
+              alert("주문에 실패하였습니다. 다시 시도해주세요");
+              return;
+            }
+          }catch(e){
+            console.error('api 실패:', e);
+            alert("서버가 연결되지 않았습니다.\n담장자에게 문의 주세요.");
+            return;
+          }
     };
 
     return (
@@ -42,42 +86,63 @@ const A001A0005 = () => {
                 <hr />
                 {/* 주문 내역 리스트 */}
                 <div className="order-items">
-                    {orderItems.map((item) => (
-                        <div className="order-item" key={item.id}>
-                            <span>{item.name}</span>
+                    {orderMenu.map((item,index) => (
+                        <div className="order-item" key={index}>
+                            <span>{item.menuName}</span>
                             <span>{item.quantity}개</span>
                             <span>{(item.price * item.quantity).toLocaleString()}원</span>
                         </div>
                     ))}
                     <div className="order-total">
-                        <strong>총합계: </strong>
+                        <strong>총 주문 가격: </strong>
                         <span>{totalSum.toLocaleString()}원</span>
                     </div>
                 </div>
 
+                <h4>사용자 주소</h4>
+                <input
+                    name="useaddress"
+                    type="text"
+                    value={userAddress}
+                    readOnly 
+                    className="form-control"
+                />
+
                 <h4>배달지 주소</h4>
                 <input
+                    name="Address"
                     type="text"
-                    value={order.deliveryAddress}
-                    onChange={(e) => setOrder({ ...order, deliveryAddress: e.target.value })}
+                    value={orderplus.Address}
                     className="form-control"
+                    onChange={changelist}
+                />
+
+                <h4>전화번호</h4>
+                <input
+                    name="tellnum"
+                    type="text"
+                    value={tellnumber}
+                    className="form-control"
+                    readOnly
                 />
 
                 <h4>요청사항</h4>
                 <textarea
-                    value={order.specialInstructions}
-                    onChange={(e) => setOrder({ ...order, specialInstructions: e.target.value })}
+                    name="Instructions"
+                    value={orderplus.Instructions}
                     className="form-control"
+                    onChange={changelist}
                 ></textarea>
 
                 <h4>결제방식</h4>
                 <select
-                    value={order.paymentMethod}
-                    onChange={(e) => setOrder({ ...order, paymentMethod: e.target.value })}
+                    name="payMethod"
+                    value={orderplus.payMethod}
                     className="form-control"
+                    onChange={changelist}
                 >
-                    <option value="card">카드</option>
-                    <option value="cash">현금</option>
+                    <option value="카드">카드</option>
+                    <option value="현금">현금</option>
                 </select>
 
                 {/* 주문 완료 버튼 */}

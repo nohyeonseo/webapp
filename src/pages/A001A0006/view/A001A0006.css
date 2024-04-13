@@ -26,6 +26,7 @@
     margin-bottom: 15px; /* 입력 필드 사이의 여백 */
     border-radius: 4px; /* 입력 필드의 둥근 모서리 */
     border: 1px solid #ddd; /* 경계선 */
+    box-sizing: border-box; /* 경계선과 패딩을 너비에 포함 */
 }
 
 .signup-form button {

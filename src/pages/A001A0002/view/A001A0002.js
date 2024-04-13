@@ -3,61 +3,84 @@ import { useNavigate } from 'react-router-dom';
 import './A001A0002.css'; // CSS 파일 임포트
 import { setAuthInfo } from '../../common/store/store';
 import Navbar from '../../common/header/Navbar';
-import { API_GET } from '../../common/api/Client';
+import { API_GET, API_POST } from '../../common/api/Client';
 
 const A001A0002 = (props) => {
     const navigate = useNavigate();
-    // const [categories, setCategories] = useState([]);
-    // const [adimg , setImg] = useState();
-    const [search, setSearch] = useState([]); // 검색어 상태
-    const [searchresult, setSeachResult] = useState(); //검색된 결과 담기
+    const [categories, setCategories] = useState([]);
 
-    const categories = [
-        { id: 1, name: '한식', image: 'korean' },
-        { id: 2, name: '중식', image: 'chinese' },
-        { id: 3, name: '일식', image: 'japanese' },
-        { id: 4, name: '양식', image: 'western' },
-        { id: 5, name: '분식', image: 'snacks' },
-    ];
-
-
-    // useEffect(() => {
-    //     const getCate = async () => {
-    //         try {
-    //             const data = await API_GET('/A001A002/categories');
-    //             setCategories(data);
-    //         } catch (e) {
-    //             console.error('카테고리 불러오기에 실패:', e);
-    //         }
-    //     };
-    //     getCate();
-    // }, []);
+    const [Imgs , setImgs] = useState([]); //광고이미지 배열
+    const [Index, setIndex] = useState(0); // 현재 보여줄 이미지의 인덱스
     
-    // useEffect(() => {
-    //     const getimg = async () => {
-    //         try {
-    //             const data = await API_GET('/A001A002/Adimg');
-    //             setImg(data);
-    //             console.log("광고이미지 불러오기",data);
-    //         } catch (e) {
-    //             console.error('광고이미지 불러오기에 실패:', e);
-    //         }
-    //     };
-    //     getimg();
-    // }, []);
+    const [search, setSearch] = useState(''); // 검색어 상태
+    const [searchResult, setSearchResult] = useState([]); // 검색된 결과 담기
+
+    useEffect(() => {
+        const getCat = async () => {
+            try {
+                const {data} = await API_GET('/rest/v1/A001A0002/get_cat');
+                console.log("Api 결과: ",data);
+                if(data.result === "SUCCESS") {
+                    setCategories(data.data);
+                    console.log("카테 불러오기", data.data);
+                }else {
+                    alert("카테 이미지를 불러오는데 실패");
+                    return;
+                }
+
+            } catch (e) {
+                console.error('카테고리 불러오기에 실패:', e);
+                alert("서버가 연결되지 않았습니다.\n담장자에게 문의 주세요.");
+                return;
+            }
+        };
+        getCat();
+    }, []);
+    
+    useEffect(() => {
+        const getimg = async () => {
+            try {
+                const {data} = await API_GET('/rest/v1/A001A0002/Adimg');
+                console.log("api 결과: ",data)
+                if(data.result === "SUCCESS"){
+                    setImgs(data.data);
+                    console.log("광고이미지 불러오기",data.data);
+                }else{
+                    alert("광고 이미지를 불러오는데 실패");
+                    return;
+                }
+            } catch (e) {
+                console.error('data 연결 없음:', e);
+                alert("서버가 연결되지 않았습니다.\n담장자에게 문의 주세요.");
+                return;
+            }
+        };
+        getimg();
+    }, []);
+
+    // 다음 이미지로 넘기기
+    const nextImage = () => {
+        setIndex((Index + 1) % Imgs.length);
+    };
+
+    // 이전 이미지로 돌아가기
+    const prevImage = () => {
+        setIndex((Index - 1 + Imgs.length) % Imgs.length);
+    };
 
     const searchChange = (e) => {
-        setSearch(e.target.value); // 입력 필드의 변경사항을 setSearch 상태에 반영,e.target.value-> value로 업데이트한다고 선언
+        setSearch(e.target.value);
     };
 
     const handleSearch = async() => {
+
         try{
-            const {data} =  await API_GET('/A001A002/search-in', search);
-            if(data.result=== "success"){
-                console.log("서치 성공");
-                setSeachResult(data);
+            const res = { search: search }; 
+            const { data } = await API_POST(`/rest/v1/A001A0002/searchIn`, res);
+            if(data.result=== "SUCCESS" && data.data !==null){
+                console.log("서치 성공",data.data);
+                setSearchResult(data.data);
             }else{
-                alert("검색결과가 존재하지않습니다.");
                 console.log(data);
             }
         }catch(e){
@@ -65,6 +88,24 @@ const A001A0002 = (props) => {
             alert("서버가 연결되지 않았습니다.\n담장자에게 문의 주세요.");
         }
     };
+    const SearchResult = ({ result, onClick }) => {
+        return (
+          <div className="result-card" onClick={onClick}>
+            <img src={result.imgUrl} alt={result.name} className="result-img" />
+            <div className="result-info">
+              <h3 className="result-name">{result.name}</h3>
+              <p className="result-description">{result.storeDes}</p>
+              <p className="result-time">Open: {result.openH} - Close: {result.closeH}</p>
+              <p className="result-number">Contact: {result.number}</p>
+            </div>
+          </div>
+        );
+      };
+
+      const handlestore = (storeId) => {
+        navigate(`/A001A0004/${storeId}`);
+    }
+
 
     return (
         <div>
@@ -72,11 +113,17 @@ const A001A0002 = (props) => {
             <div className="contents">
                 {/* 광고창 */}
                 <div className="ad-box">
-                    <img
-                        className="ad-img"
-                        src="/img/image.png"
-                        alt="광고 이미지"
-                    />
+                    {Imgs.length > 0 && (
+                        <div className="ad-img-container">
+                            <button className="prev-button" onClick={prevImage}>&lt;</button>
+                            <img
+                                className="ad-img"
+                                src={Imgs[Index].imgUrl}
+                                alt={`광고 이미지 ${Index + 1}`}
+                            />
+                            <button className="next-button" onClick={nextImage}>&gt;</button>
+                        </div>
+                    )}
                 </div>
 
                 
@@ -84,14 +131,14 @@ const A001A0002 = (props) => {
                 <div className="category-box">
                     {categories.map((cat, index) => (
                         <div className="category-item" key={index}>
-                            <a href={`/A001A0003`}>
+                            <a href={`/A001A0003?catId=${cat.catId}`}>
                                 <img
-                                    src={`/img/no-img.png`}
-                                    alt={cat.name}
+                                    src={cat.catUrl ? cat.catUrl : `/img/no-img.png`}
+                                    alt={cat.catName}
                                     className="category-img"
                                 />
                             </a>
-                            <p className="category-name">{cat.name}</p>
+                            <p className="category-name">{cat.catName}</p>
                         </div>
                     ))}
                 </div>
@@ -111,10 +158,11 @@ const A001A0002 = (props) => {
                     </button>
                 </div>
                 {/* 검색된 결과 */}
-                {/* {searchresult.map((result, index) => (
-                    <div key={index}>{result.name}</div>
-                ))} */}
-
+                <div className="results-container">
+                    {searchResult.map((result, index) => (
+                        <SearchResult key={index} result={result} onClick={() => handlestore(result.storeId)}/>
+                    ))}
+                </div>  
             </div>
         </div>
     );

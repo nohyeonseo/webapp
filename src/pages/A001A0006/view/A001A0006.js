@@ -5,6 +5,7 @@ import { API_GET, API_POST } from '../../common/api/Client';
 import { useNavigate } from 'react-router-dom';
 
 const A001A0006 = () => {
+    const navigate = useNavigate(); 
 
     const [formData, setFormData] = useState({
         username: '',
@@ -26,9 +27,10 @@ const A001A0006 = () => {
         e.preventDefault();
         try {
             const { data } = await API_POST('/rest/v1/A001A0006/sign-in', formData);
-            if( data.result === "success"){
-               alert("회원가입이 완료되었습니다"); 
-               console.log(data);
+            if( data.result === "SUCCESS" && data.data !== null ){
+                console.log(data);
+                alert("회원가입이 완료되었습니다"); 
+                navigate('/A001A0001');
             } else{
                 alert("회원가입에 실패하였습니다. \n다시 시도해주세요");
                 console.log(data)

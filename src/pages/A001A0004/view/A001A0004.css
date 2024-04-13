@@ -43,12 +43,15 @@
   }
   
   .menu-img-placeholder {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
     background-color: #ddd;
     margin-right: 10px;
     border-radius: 50%; /* 이미지 플레이스홀더에 둥근 모서리 추가 */
   }
+
+  
 
   .menu-details {
     display: flex;

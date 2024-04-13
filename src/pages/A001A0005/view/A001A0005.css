@@ -1,52 +1,78 @@
+/* 주문서 컨테이너 스타일 */
 .order-form-container {
-    margin-top: 20px; /* 네비게이션 바로 인해 추가한 상단 여백을 조정합니다. */
-    margin-bottom: 50px; /* 하단에 여유 공간 추가합니다. */
-    padding: 40px; /* 내부 패딩을 추가하여 내용물과 컨테이너의 경계에 여백을 줍니다. */
-    background: #ffffff; /* 배경색 지정, 선택적입니다. */
-    border-radius: 8px; /* 둥근 모서리 추가, 선택적입니다. */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 박스 그림자 효과, 선택적입니다. */
-    max-width: 800px; /* 최대 너비를 설정하여 너무 넓어지지 않도록 합니다. */
-    margin-left: auto; /* 자동 마진으로 가운데 정렬합니다. */
-    margin-right: auto; /* 자동 마진으로 가운데 정렬합니다. */
-}
-.total-price {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-}
-
-.btn-block {
-    width: 100%;
-    padding: 10px;
     margin-top: 20px;
+    margin-bottom: 50px;
+    padding: 20px; /* 내부 패딩을 줄임 */
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* 최대 너비를 줄여 좁은 영수증 느낌을 줌 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* ...기존의 CSS 코드... */
+/* 입력 필드 스타일 */
+.form-control {
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
 
+/* 입력 필드 포커스 시 스타일 */
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* 읽기 전용 입력 필드 스타일 */
+.form-control[readonly] {
+    background-color: #e9ecef;
+    color: #495057;
+    cursor: not-allowed;
+}
+
+/* 주문 항목 스타일 */
 .order-items .order-item {
     display: flex;
     justify-content: space-between;
-
+    margin-bottom: 10px; /* 주문 항목 간 간격 추가 */
 }
 
-.order-items .order-item, .order-total {
+.order-items .order-item span {
+    display: inline-block;
+    padding: 2px 5px;
+}
+
+/* 주문 항목 및 총합계 스타일 */
+.order-items, .order-total {
     padding: 10px 0;
-    border-bottom: 1px solid #eaeaea; /* 구분선 추가, 선택적입니다. */
+    border-bottom: 1px solid #eaeaea;
 }
-/* 마지막 order-item의 border-bottom을 제거합니다. */
+
 .order-items .order-item:last-child {
     border-bottom: none;
 }
 
+/* 총 주문 가격 스타일 */
 .order-total {
     display: flex;
     justify-content: space-between;
-    padding: 10px 0;
     font-weight: bold;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc; /* 점선 추가 */
 }
 
+/* 주문 완료 버튼 스타일 */
 .btn-block {
-    width: calc(100% - 40px); /* 버튼의 양쪽 패딩을 고려한 너비 */
+    width: 100%;
     padding: 10px;
     margin-top: 20px;
-    margin-bottom: 20px; /* 버튼 아래에 여유 공간을 추가합니다. */
+    background-color: #28a745;
+    color: white;
+    border-radius: 0.25rem;
+    border: 1px solid transparent;
+}
+
+.btn-block:hover {
+    background-color: #218838;
 }
