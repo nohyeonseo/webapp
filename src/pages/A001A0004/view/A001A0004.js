@@ -64,36 +64,50 @@ const A001A0004 = () => {
       setQuantities(prev => ({ ...prev, [id]: value }));
     };
 
+
     const handleAddToCart = (item) => {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const exItemIndex = cart.findIndex(cartItem => cartItem.menuId === item.menuId);
+      if(localStorage.getItem('username') !==null) {
+        
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const exItemIndex = cart.findIndex(cartItem => cartItem.menuId === item.menuId);
     
-      //menuId가 이미 존재할 경우
-      if (exItemIndex !== -1) {
-        cart[exItemIndex].quantity += quantities[item.menuId] || 1;
-        // 장바구니 내 해당 메뉴 항목의 현재 수량 +=사용자가 선택한 해당 아이템의 수량
-      } 
-      else {
-        cart.push({
-          menuId: item.menuId,
-          menuName: item.menuName,
-          price: item.price,
-          quantity: quantities[item.menuId] || 1,
-        });
+        //menuId가 이미 존재할 경우
+        if (exItemIndex !== -1) {
+          cart[exItemIndex].quantity += quantities[item.menuId] || 1;
+          // 장바구니 내 해당 메뉴 항목의 현재 수량 +=사용자가 선택한 해당 아이템의 수량
+        } 
+        else {
+          cart.push({
+            menuId: item.menuId,
+            menuName: item.menuName,
+            price: item.price,
+            quantity: quantities[item.menuId] || 1,
+          });
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        console.log("localStorage에 담겨진 메뉴 : ",localStorage );
+        alert(`${item.menuName}이(가) ${quantities[item.menuId] || 1}개가 장바구니에 추가되었습니다.`);
+      }else {
+        alert('로그인 이후 담기 기능을 사용하실수 있습니다.');
+        return;
       }
-      localStorage.setItem('cart', JSON.stringify(cart));
-      console.log("localStorage에 담겨진 메뉴 : ",localStorage );
-      alert(`${item.menuName}이(가) ${quantities[item.menuId] || 1}개가 장바구니에 추가되었습니다.`);
+    
     };
 
     const localStorageDel = () => {
-      localStorage.clear();
+      localStorage.removeItem('cart');
       alert("주문 목록 삭제");
       console.log("localStorage에 담겨진 메뉴 : ",localStorage );
     };
 
     const nextpage = () => {
-      navigate('/A001A0005');
+      if(localStorage.getItem('username') !==null){
+        navigate('/A001A0005');
+      } else {
+        alert('로그인이 필요합니다');
+        return;
+      }
+      
     }
       
     return (
@@ -139,9 +153,9 @@ const A001A0004 = () => {
             </select>
 
             {/* 담기 버튼 추가 */}
-            <button onClick={() => handleAddToCart(item)} className="add-to-cart-button">
-                담기
-            </button>
+              <button onClick={() => handleAddToCart(item)} className="add-to-cart-button">
+                  담기
+              </button>
             </div>
           </div>
           ))}
@@ -198,6 +212,7 @@ const A001A0004 = () => {
             <button className="order-button" onClick={localStorageDel}>
                 주문 목록 삭제
             </button>
+
             <button className="order-button" onClick={nextpage}>
                 주문하기
             </button>

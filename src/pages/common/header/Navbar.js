@@ -25,7 +25,6 @@ const Navbar = () => {
     const logoutbtn = () => {
       localStorage.clear();
       alert("로그아웃되었습니다.");
-    //   navigate('/A001A0002');  
       window.location.href = '/A001A0002';
       console.log("로그아웃시 상태 :",localStorage);
     }

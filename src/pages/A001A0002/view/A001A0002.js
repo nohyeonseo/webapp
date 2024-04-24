@@ -112,7 +112,7 @@ const A001A0002 = (props) => {
             <Navbar />
             <div className="contents">
                 {/* 광고창 */}
-                <div className="ad-box">
+                {/* <div className="ad-box">
                     {Imgs.length > 0 && (
                         <div className="ad-img-container">
                             <button className="prev-button" onClick={prevImage}>&lt;</button>
@@ -124,8 +124,21 @@ const A001A0002 = (props) => {
                             <button className="next-button" onClick={nextImage}>&gt;</button>
                         </div>
                     )}
+                </div> */}
+                <div className="ad-box">
+                    {Imgs.length > 0 && (
+                        <div className="ad-img-container">
+                            <button className="prev-button" onClick={prevImage}>&lt;</button>
+                            <div className="ad-label">광고</div> {/* 광고 레이블 추가 */}
+                            <img
+                                className="ad-img"
+                                src={Imgs[Index].imgUrl}
+                                alt={`광고 이미지 ${Index + 1}`}
+                            />
+                            <button className="next-button" onClick={nextImage}>&gt;</button>
+                        </div>
+                    )}
                 </div>
-
                 
                 {/* 카테고리 */}
                 <div className="category-box">

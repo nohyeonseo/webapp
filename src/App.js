@@ -7,6 +7,11 @@ import A001A0004 from './pages/A001A0004/view/A001A0004';
 import A001A0005 from './pages/A001A0005/view/A001A0005';
 import A001A0006 from './pages/A001A0006/view/A001A0006';
 import A001A0007 from './pages/A001A0007/view/A001A0007';
+import A001A0008 from './pages/A001A0008/view/A001A0008';
+import A001A0009 from './pages/A001A0009/view/A001A0009';
+import A001A0010 from './pages/A001A0010/view/A001A0010';
+import A001A0011 from './pages/A001A0011/view/A001A0011';
+import A002A0001 from './pages/A002A0001/view/A002A0001';
 
 function App() {
   return (
@@ -20,6 +25,11 @@ function App() {
         <Route path="/A001A0005" element={<A001A0005 />} />
         <Route path="/A001A0006" element={<A001A0006 />} />
         <Route path="/A001A0007" element={<A001A0007 />} />
+        <Route path="/A001A0008" element={<A001A0008 />} />
+        <Route path="/A001A0009" element={<A001A0009 />} />
+        <Route path="/A001A0010" element={<A001A0010 />} />
+        <Route path="/A001A0011" element={<A001A0011 />} />
+        <Route path="/A002A0001" element={<A002A0001 />} />
         {/* 다른 라우트들... */}
       </Routes>
     </Router>

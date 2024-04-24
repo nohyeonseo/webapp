@@ -26,17 +26,25 @@ const A001A0001 = (props) => {
           password,
         });
         console.log("로그인 시도:",data);
-        if(data.result == "FAIL"){
+        if(data.result == "SUCCESS"){
+          
+          alert("로그인에 성공");
+          setAuthInfo(data.data);
+
+          if(data.data.username == "8888" && data.data.password == "1234"){
+            navigate('/A001A0009');
+          }else {
+            navigate('/A001A0002');
+          }
+        
+        }else{
           alert("로그인에 실패하였습니다.");
           return;
         }
-        alert("로그인에 성공");
-        setAuthInfo(data.data);
-        navigate('/A001A0002');
-      }
-      catch(e){
+      }catch(e){
         alert("서버가 연결되지 않았습니다.\n담장자에게 문의 주세요.");
       }
+      
     };
   
     const join = async() => {
