@@ -35,15 +35,15 @@ const A002A0001 = () => {
       const selStore = storeList.find(store => store.storeId === selStoreId);
       if (selStore) {
         setFormData({
-          store_Id: selStore.storeId,
+          storeId: selStore.storeId,
           name: selStore.name,
           number: selStore.number,
-          open_h: selStore.openH,
-          close_h: selStore.closeH,
+          openH: selStore.openH,
+          closeH: selStore.closeH,
           holiday: selStore.holiday,
-          cat_id: selStore.catId,
-          store_des: selStore.storeDes, 
-          img_url: selStore.imgUrl
+          catId: selStore.catId, 
+          storeDes: selStore.storeDes,
+          imgUrl: selStore.imgUrl 
         });
       }
     };
@@ -92,7 +92,7 @@ const A002A0001 = () => {
           
           <label>
             가게 ID:
-            <input type="text" name="store_Id" value={formData?.storeId || '없음'} onChange={handleInputChange} required />
+            <input type="text" name="storeId" value={formData?.storeId || '없음'} onChange={handleInputChange} required />
           </label>
           <label>
             가게 Name:
@@ -105,11 +105,11 @@ const A002A0001 = () => {
 
           <label>
             Open Hours (00:00 - 23:59):
-            <input type="time" name="open_h" min="00:00" max="23:59" value={formData?.open_h|| '없음'} onChange={handleInputChange} required />
+            <input type="time" name="openH" min="00:00" max="23:59" value={formData?.openH|| '없음'} onChange={handleInputChange} required />
           </label>
           <label>
             Close Hours (00:00 - 23:59):
-            <input type="time" name="close_h" min="00:00" max="23:59" value={formData?.close_h|| '없음'} onChange={handleInputChange} required />
+            <input type="time" name="closeH" min="00:00" max="23:59" value={formData?.closeH|| '없음'} onChange={handleInputChange} required />
           </label>
 
           <label>
@@ -126,7 +126,7 @@ const A002A0001 = () => {
           </label>
           <label>
             가게 카테고리 ID:
-            <select name="cat_id" value={formData?.cat_id|| '없음'} onChange={handleInputChange} required>
+            <select name="catId" value={formData?.catId|| '없음'} onChange={handleInputChange} required>
               <option value="">Select Category</option>
               <option value="cat_001">Korean (한식)</option>
               <option value="cat_002">Japanese (일식)</option>
@@ -137,11 +137,11 @@ const A002A0001 = () => {
           </label>
           <label>
             가게 설명:
-            <textarea name="store_des" value={formData?.store_des|| '없음'} onChange={handleInputChange} required />
+            <textarea name="storeDes" value={formData?.storeDes|| '없음'} onChange={handleInputChange} required />
           </label>
           <label>
             가게 Image URL:
-            <input type="text" name="img_url" value={formData?.img_url|| '없음'} onChange={handleInputChange} required />
+            <input type="text" name="imgUrl" value={formData?.imgUrl|| '없음'} onChange={handleInputChange} required />
           </label>
 
           <button type="submit">가게 수정하기</button>

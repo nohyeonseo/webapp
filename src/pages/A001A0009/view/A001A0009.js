@@ -23,7 +23,7 @@ const A001A0009 = () => {
     navigate('/A002A0001');
   };
   const updateMenu = async () => {
-    navigate('/A001A0013');
+    navigate('/A002A0002');
   };
   const updateAd = async() => {
     navigate('/A001A0014');

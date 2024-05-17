@@ -12,6 +12,7 @@ import A001A0009 from './pages/A001A0009/view/A001A0009';
 import A001A0010 from './pages/A001A0010/view/A001A0010';
 import A001A0011 from './pages/A001A0011/view/A001A0011';
 import A002A0001 from './pages/A002A0001/view/A002A0001';
+import A002A0002 from './pages/A002A0002/view/A002A0002';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/A001A0010" element={<A001A0010 />} />
         <Route path="/A001A0011" element={<A001A0011 />} />
         <Route path="/A002A0001" element={<A002A0001 />} />
+        <Route path="/A002A0002" element={<A002A0002 />} />
         {/* 다른 라우트들... */}
       </Routes>
     </Router>
